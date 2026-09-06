@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.db.models import Q
+from django.utils import timezone
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from studentorg.models import Organization, OrgMember, Student, College, Program
@@ -11,8 +12,6 @@ from studentorg.forms import (
     ProgramForm,
 )
 from django.urls import reverse_lazy
-
-from django.utils import timezone
 
 class HomePageView(ListView):
     model = Organization
@@ -35,6 +34,9 @@ class HomePageView(ListView):
         )
 
         context["students_joined_this_year"] = count
+        context["total_organizations"] = Organization.objects.count()
+        context["total_programs"] = Program.objects.count()
+        
         return context
 
 class OrganizationList(ListView):
