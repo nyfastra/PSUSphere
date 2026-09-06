@@ -78,6 +78,13 @@ class OrgMemberList(ListView):
     template_name = 'orgmember_list.html'
     paginate_by = 5
 
+    def get_ordering(self):
+        allowed = ["student__firstname", "student__lastname", "date_joined"]
+        sort_by = self.request.GET.get("sort_by")
+        if sort_by in allowed:
+            return sort_by
+        return "student__firstname"
+    
     def get_queryset(self):
         qs = super().get_queryset()
         query = self.request.GET.get('q')
@@ -183,6 +190,13 @@ class ProgramList(ListView):
     template_name = 'program_list.html'
     paginate_by = 5
 
+    def get_ordering(self):
+            allowed = ["prog_name", "college__college_name"]
+            sort_by = self.request.GET.get("sort_by")
+            if sort_by in allowed:
+                return sort_by
+            return "prog_name"
+
     def get_queryset(self):
         qs = super().get_queryset()
         query = self.request.GET.get('q')
@@ -193,13 +207,6 @@ class ProgramList(ListView):
                 Q(college__college_name__icontains=query)
             )
         return qs
-    
-    def get_ordering(self):
-        allowed = ["prog_name", "college__college_name"]
-        sort_by = self.request.GET.get("sort_by")
-        if sort_by in allowed:
-            return sort_by
-        return "prog_name"
 
 class ProgramCreateView(CreateView):
     model = Program
