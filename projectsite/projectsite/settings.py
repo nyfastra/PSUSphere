@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-usea7my33+&n6o+=ok-_ni3b3^lu6q9@9=a%cb)o#ebo8bi-zu
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['psusphere.pythonanywhere.com', '127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'psusphere.pythonanywhere.com']
 
 
 # Application definition
@@ -48,7 +48,12 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.github',
 ]
 
-SITE_ID = 2
+import socket
+
+if "pythonanywhere" in socket.gethostname():
+    SITE_ID = 2 # production site (psusphere.pythonanywhere.com)
+else:
+    SITE_ID = 1 # local site (127.0.0.1:8000)
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
