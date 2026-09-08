@@ -17,7 +17,7 @@ Including another URLconf
 
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from studentorg.views import (
     HomePageView,
     OrganizationList, OrganizationCreateView, OrganizationUpdateView, OrganizationDeleteView,
@@ -30,6 +30,7 @@ from studentorg import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("accounts/", include("allauth.urls")), # allauth routes
     path('', HomePageView.as_view(), name='home'),
     
     path('organization_list/', OrganizationList.as_view(), name='organization-list'),
