@@ -112,15 +112,13 @@
                                 <a class="dropdown-item" href="#"><i class="ti-email"></i> Inbox</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#"><i class="ti-settings"></i> Account Setting</a>
-                                <div class="dropdown-divider"></div>
-                                <li>
-									<form method="post" action="{% url 'account_logout' %}" class="m-0 p-0">
-										{% csrf_token %}
-										<button type="submit" class="dropdown-item d-flex align-items-center border-0 bg-transparent w-100">
-											<i class="fa fa-power-off mr-2"></i> Logout
-										</button>
-									</form>
-								</li>
+								<div class="dropdown-divider"></div>
+								<form id="logout-form" method="post" action="{% url 'account_logout' %}" style="display: none;">
+									{% csrf_token %}
+								</form>
+								<a class="dropdown-item" href="javascript:void(0);" onclick="document.getElementById('logout-form').submit();">
+									<i class="fa fa-power-off"></i> Logout
+								</a>
                             </ul>
                         </li>
                     </ul>
